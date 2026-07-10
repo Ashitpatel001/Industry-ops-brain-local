@@ -1,0 +1,42 @@
+[
+  {
+    "mode_id": "FM-001",
+    "name": "Mechanical Seal Failure",
+    "category": "Mechanical Wear",
+    "description": "Leakage across pump mechanical seal faces due to thermal shock, dry running, or abrasive particulates.",
+    "typical_cause": "Improper flushing plan (Plan 53A pressure loss) or excessive vibration.",
+    "recommended_action": "Inspect seal cartridge, verify seal flush pressure, and check shaft alignment."
+  },
+  {
+    "mode_id": "FM-002",
+    "name": "Bearing Seizure / Wear",
+    "category": "Mechanical Wear",
+    "description": "Overheating and spalling of rolling element bearings.",
+    "typical_cause": "Lubrication starvation, oil contamination, or misalignment.",
+    "recommended_action": "Perform vibration spectrum analysis, flush lube oil housing, and replace bearings."
+  },
+  {
+    "mode_id": "FM-003",
+    "name": "Tube-side Fouling",
+    "category": "Thermal / Flow",
+    "description": "Accumulation of asphaltenes and inorganic deposits inside exchanger tubes.",
+    "typical_cause": "Low tube velocity or crude incompatibility.",
+    "recommended_action": "Schedule hydro-jetting cleanout during next turnaround; monitor differential pressure."
+  },
+  {
+    "mode_id": "FM-004",
+    "name": "Compressor Valve Cage Failure",
+    "category": "Mechanical Fatigue",
+    "description": "Cracking or sticking of suction/discharge suction valves in reciprocating compressors.",
+    "typical_cause": "Liquid carryover in gas stream or cyclic fatigue.",
+    "recommended_action": "Inspect suction knockout drum demister and replace valve assemblies."
+  },
+  {
+    "mode_id": "FM-005",
+    "name": "Atmospheric O2 Testing Failure",
+    "category": "Safety / Compliance",
+    "description": "Failure to perform or document atmospheric oxygen and toxic gas testing before confined space entry.",
+    "typical_cause": "SOP procedural shortcut or uncalibrated multi-gas detector.",
+    "recommended_action": "Enforce mandatory checklist hold-point; mandate OISD-GDN-192 compliance verification."
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "reg_id": "FA1948-SEC36",
+    "standard": "Factory Act 1948",
+    "clause": "Section 36",
+    "title": "Precautions against dangerous fumes, gases, and dusts",
+    "requirement": "No person shall be required or allowed to enter any chamber, tank, vat, pit, pipe, flue or other confined space in any factory in which any gas, fume, vapour or dust is likely to be present to such an extent as to involve risk to persons, unless it is provided with a manhole of adequate size or other effective means of egress and certified safe by a competent person.",
+    "category": "Statutory Compliance",
+    "status": "ACTIVE"
+  },
+  {
+    "reg_id": "FA1948-SEC31",
+    "standard": "Factory Act 1948",
+    "clause": "Section 31",
+    "title": "Pressure Plants and Vessels",
+    "requirement": "If in any factory any plant or machinery or vessel is operated at a pressure above atmospheric pressure, effective measures shall be taken to ensure that the safe working pressure is not exceeded, including periodic examination and testing by a competent person at least once every 12 months.",
+    "category": "Statutory Compliance",
+    "status": "ACTIVE"
+  }
+]

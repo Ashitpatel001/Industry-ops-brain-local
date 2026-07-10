@@ -1,0 +1,12 @@
+[project]
+name = "ops-brain-local"
+version = "0.1.0"
+description = "On-device AI Industrial Knowledge Intelligence System, fully offline."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+
+[tool.black]
+line-length = 88
+target-version = ['py310']
+include = '\.pyi?$'

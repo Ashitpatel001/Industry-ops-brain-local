@@ -1,0 +1,79 @@
+[
+  {
+    "wo_id": "WO-10234",
+    "asset_tag": "P-204",
+    "title": "Emergency Mechanical Seal Replacement",
+    "description": "Primary mechanical seal failed causing hydrocarbons to leak into atmosphere. Unit tripped by operator. Replaced double mechanical seal cartridge.",
+    "failure_mode": "Mechanical Seal Failure",
+    "date_created": "2024-01-15",
+    "status": "COMPLETED",
+    "cost": 12500,
+    "downtime_hours": 18
+  },
+  {
+    "wo_id": "WO-10552",
+    "asset_tag": "P-204",
+    "title": "Seal Flush Plan 53A Pressure Drop Investigation",
+    "description": "Barrier fluid pressure dropped below chamber pressure. Found micro-leak in accumulator fitting. Replaced fitting and recharged N2.",
+    "failure_mode": "Mechanical Seal Failure",
+    "date_created": "2024-02-28",
+    "status": "COMPLETED",
+    "cost": 1800,
+    "downtime_hours": 4
+  },
+  {
+    "wo_id": "WO-10891",
+    "asset_tag": "P-204",
+    "title": "Recurrent Seal Failure & Shaft Vibration Analysis",
+    "description": "Third seal failure in 18 months. Vibration analysis indicated 4.5 mm/s RMS at 1X RPM indicating angular misalignment. Laser aligned pump and motor.",
+    "failure_mode": "Mechanical Seal Failure",
+    "date_created": "2024-04-10",
+    "status": "COMPLETED",
+    "cost": 15000,
+    "downtime_hours": 24
+  },
+  {
+    "wo_id": "WO-11002",
+    "asset_tag": "HX-301",
+    "title": "High Differential Pressure Cleanout",
+    "description": "Tube side differential pressure exceeded 1.8 bar. Performed high pressure chemical washing and mechanical hydro-jetting.",
+    "failure_mode": "Tube-side Fouling",
+    "date_created": "2024-03-12",
+    "status": "COMPLETED",
+    "cost": 28000,
+    "downtime_hours": 48
+  },
+  {
+    "wo_id": "WO-11205",
+    "asset_tag": "C-401",
+    "title": "Suction Valve Replacement on Cylinder 2",
+    "description": "High discharge temperature and abnormal clattering noise. Disassembled Cylinder 2 and found cracked suction valve plate. Replaced valve assembly.",
+    "failure_mode": "Compressor Valve Cage Failure",
+    "date_created": "2024-05-02",
+    "status": "COMPLETED",
+    "cost": 9500,
+    "downtime_hours": 12
+  },
+  {
+    "wo_id": "WO-11450",
+    "asset_tag": "P-101",
+    "title": "Preventive Bearing Lubrication and PM",
+    "description": "Scheduled 6-month preventive maintenance. Sampled lube oil, checked vibration spectra (normal), and topped off synthetic oil.",
+    "failure_mode": "Bearing Seizure / Wear",
+    "date_created": "2024-05-20",
+    "status": "COMPLETED",
+    "cost": 850,
+    "downtime_hours": 2
+  },
+  {
+    "wo_id": "WO-11600",
+    "asset_tag": "V-112",
+    "title": "Annual Safety Relief Valve Testing",
+    "description": "Removed PSV-112A and tested on bench. Pop pressure verified at 150 bar. Reinstalled with new spiral wound gaskets.",
+    "failure_mode": "Atmospheric O2 Testing Failure",
+    "date_created": "2024-06-01",
+    "status": "COMPLETED",
+    "cost": 3200,
+    "downtime_hours": 6
+  }
+]

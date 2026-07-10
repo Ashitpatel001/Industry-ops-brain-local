@@ -1,0 +1,102 @@
+[
+  {
+    "asset_tag": "P-204",
+    "name": "Crude Charge Pump A",
+    "type": "Centrifugal Pump",
+    "criticality": "HIGH",
+    "process_unit": "Unit-5 (CDU)",
+    "mtbf_days": 67,
+    "status": "WARNING",
+    "description": "Primary feed pump for crude distillation column. History of mechanical seal failures."
+  },
+  {
+    "asset_tag": "P-101",
+    "name": "Reflux Pump B",
+    "type": "Centrifugal Pump",
+    "criticality": "MEDIUM",
+    "process_unit": "Unit-2 (VDU)",
+    "mtbf_days": 180,
+    "status": "OPERATIONAL",
+    "description": "Overhead reflux pump for vacuum tower."
+  },
+  {
+    "asset_tag": "HX-301",
+    "name": "Pre-Heat Exchanger Bank",
+    "type": "Shell & Tube Exchanger",
+    "criticality": "HIGH",
+    "process_unit": "Unit-5 (CDU)",
+    "mtbf_days": 240,
+    "status": "OPERATIONAL",
+    "description": "Crude pre-heat exchanger train. Susceptible to tube-side fouling and differential pressure buildup."
+  },
+  {
+    "asset_tag": "V-112",
+    "name": "High Pressure Separator Vessel",
+    "type": "Pressure Vessel",
+    "criticality": "HIGH",
+    "process_unit": "Unit-3 (Hydrocracker)",
+    "mtbf_days": 365,
+    "status": "OPERATIONAL",
+    "description": "3-phase separator operating at 150 bar. Requires rigorous weld inspection and relief valve testing."
+  },
+  {
+    "asset_tag": "V-205",
+    "name": "Refinery Blowdown Drum",
+    "type": "Atmospheric Vessel",
+    "criticality": "MEDIUM",
+    "process_unit": "Unit-1 (Flare Train)",
+    "mtbf_days": 500,
+    "status": "OPERATIONAL",
+    "description": "Emergency blowdown collection drum for flare headers."
+  },
+  {
+    "asset_tag": "C-401",
+    "name": "Make-up Gas Compressor",
+    "type": "Reciprocating Compressor",
+    "criticality": "HIGH",
+    "process_unit": "Unit-3 (Hydrocracker)",
+    "mtbf_days": 90,
+    "status": "WARNING",
+    "description": "High pressure hydrogen compressor. Frequent valve cage wear and vibration alerts."
+  },
+  {
+    "asset_tag": "T-501",
+    "name": "Atmospheric Distillation Tower",
+    "type": "Distillation Column",
+    "criticality": "HIGH",
+    "process_unit": "Unit-5 (CDU)",
+    "mtbf_days": 730,
+    "status": "OPERATIONAL",
+    "description": "Main atmospheric crude distillation column."
+  },
+  {
+    "asset_tag": "B-601",
+    "name": "Fired Heater Furnace",
+    "type": "Fired Heater",
+    "criticality": "HIGH",
+    "process_unit": "Unit-5 (CDU)",
+    "mtbf_days": 300,
+    "status": "OPERATIONAL",
+    "description": "Natural gas and fuel oil fired crude feed heater. Requires burner management system monitoring."
+  },
+  {
+    "asset_tag": "P-305",
+    "name": "Amine Circulation Pump",
+    "type": "Centrifugal Pump",
+    "criticality": "MEDIUM",
+    "process_unit": "Unit-4 (SRU)",
+    "mtbf_days": 150,
+    "status": "OPERATIONAL",
+    "description": "Lean amine pump for sulfur recovery unit."
+  },
+  {
+    "asset_tag": "HX-402",
+    "name": "Condenser Bank",
+    "type": "Air Cooled Exchanger",
+    "criticality": "LOW",
+    "process_unit": "Unit-2 (VDU)",
+    "mtbf_days": 400,
+    "status": "OPERATIONAL",
+    "description": "Fin-fan cooler for vacuum tower overhead vapors."
+  }
+]

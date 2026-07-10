@@ -1,0 +1,11 @@
+[
+  {
+    "reg_id": "PESO-SMPV-18",
+    "standard": "PESO SMPV Rules",
+    "clause": "Rule 18",
+    "title": "Safety Relief Valves on Pressure Vessels",
+    "requirement": "Every static pressure vessel for storage of compressed gases must be fitted with at least two safety relief valves set to discharge at a pressure not exceeding the design pressure of the vessel.",
+    "category": "Statutory Compliance",
+    "status": "ACTIVE"
+  }
+]

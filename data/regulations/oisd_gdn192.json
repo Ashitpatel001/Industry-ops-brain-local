@@ -1,0 +1,20 @@
+[
+  {
+    "reg_id": "OISD-GDN-192-7.3.2",
+    "standard": "OISD-GDN-192",
+    "clause": "7.3.2",
+    "title": "Confined Space Entry - Atmospheric Testing",
+    "requirement": "Before any personnel enter a confined space, atmospheric testing MUST be conducted for oxygen content (must be between 19.5% and 23.5% by volume), flammable gases (< 1% LEL), and toxic gases (H2S < 10 ppm, CO < 35 ppm). Results must be recorded on the entry permit.",
+    "category": "Life Safety",
+    "status": "ACTIVE"
+  },
+  {
+    "reg_id": "OISD-GDN-192-8.1",
+    "standard": "OISD-GDN-192",
+    "clause": "8.1",
+    "title": "Standby Person / Hole Watch",
+    "requirement": "A dedicated, trained standby person (hole watch) must remain outside the confined space entrance at all times while personnel are inside, equipped with reliable emergency communication.",
+    "category": "Life Safety",
+    "status": "ACTIVE"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  {
+    "reg_id": "OISD-116-4.1",
+    "standard": "OISD-116",
+    "clause": "4.1",
+    "title": "Fire Protection in Petroleum Refineries - Pump Spacing",
+    "requirement": "Hydrocarbon handling pumps operating above 200\u00b0C shall be located at least 15 meters away from fired heaters and furnaces.",
+    "category": "Fire Safety",
+    "status": "ACTIVE"
+  },
+  {
+    "reg_id": "OISD-116-7.2",
+    "standard": "OISD-116",
+    "clause": "7.2",
+    "title": "Mechanical Seal Requirements",
+    "requirement": "All centrifugal pumps handling volatile hydrocarbons (Class A and B petroleum products) must be equipped with double mechanical seals or tandem mechanical seals with appropriate barrier fluid monitoring systems.",
+    "category": "Equipment Safety",
+    "status": "ACTIVE"
+  }
+]

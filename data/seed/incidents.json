@@ -1,0 +1,32 @@
+[
+  {
+    "incident_id": "INC-2024-001",
+    "title": "Hydrocarbon Flash Fire near P-204",
+    "date_occurred": "2024-01-15",
+    "severity": "HIGH",
+    "asset_tag": "P-204",
+    "root_cause": "Catastrophic mechanical seal blowout resulting in crude oil spray onto hot adjacent steam header.",
+    "failure_mode": "Mechanical Seal Failure",
+    "preventive_action": "Upgrade seal to dual pressurized cartridge (API 682 Plan 53B) and install acoustic leak detection."
+  },
+  {
+    "incident_id": "INC-2024-002",
+    "title": "Near-Miss Confined Space Entry at V-205",
+    "date_occurred": "2024-03-22",
+    "severity": "CRITICAL",
+    "asset_tag": "V-205",
+    "root_cause": "Contractor team attempted vessel entry without conducting atmospheric oxygen test or obtaining signed permit.",
+    "failure_mode": "Atmospheric O2 Testing Failure",
+    "preventive_action": "Mandatory stand-down training on OISD-GDN-192 and implementation of physical lockout hasps on vessel manways."
+  },
+  {
+    "incident_id": "INC-2024-003",
+    "title": "Compressor Trip on High Vibration C-401",
+    "date_occurred": "2024-05-02",
+    "severity": "MEDIUM",
+    "asset_tag": "C-401",
+    "root_cause": "Valve debris fell into cylinder bore following valve cage fatigue failure.",
+    "failure_mode": "Compressor Valve Cage Failure",
+    "preventive_action": "Implement ultrasonic valve monitoring and shorten valve inspection interval to 4,000 operating hours."
+  }
+]
