@@ -31,7 +31,7 @@ logger = logging.getLogger("DownloadModel")
 
 # Default model configurations
 DEFAULT_MODEL_ID = "Qwen/Qwen2.5-3B-Instruct"
-DEFAULT_OV_DIR = Path(r"D:\AI-local\models\qwen2.5-3b-int4")
+DEFAULT_OV_DIR = Path("models/qwen2.5-3b-int4")
 
 
 def check_openvino_model(output_dir: Path) -> bool:
