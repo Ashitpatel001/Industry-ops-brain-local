@@ -1,104 +1,96 @@
 """
 ui/components/model_status.py
 =============================
-Renders real-time hardware acceleration diagnostics (OpenVINO INT4/ Ram Usage)
-in a sleek glassmorphic dashboard card.
+Sidebar diagnostics card. Reads GET /api/v1/health, which returns:
+
+    {"status": "HEALTHY", "backend": "MockLLM", "ram_used_gb": 10.1, "uptime_seconds": 6.8}
+
+Renders as a compact instrument card in the (navy) sidebar.
 """
 
 import streamlit as st
 import requests
 
+API_URL_DEFAULT = "http://127.0.0.1:8000"
 
-def render_model_status(api_url: str = "http://127.0.0.1:8000"):
-    """Fetch and render system health and hardware acceleration diagnostics."""
+
+def _format_uptime(seconds) -> str:
+    try:
+        seconds = float(seconds)
+    except (TypeError, ValueError):
+        return "—"
+    if seconds < 60:
+        return f"{seconds:.0f}s"
+    minutes, sec = divmod(int(seconds), 60)
+    if minutes < 60:
+        return f"{minutes}m {sec}s"
+    hours, minutes = divmod(minutes, 60)
+    return f"{hours}h {minutes}m"
+
+
+def render_model_status(api_url: str = API_URL_DEFAULT) -> None:
+    """Fetch and render backend health / hardware diagnostics."""
     try:
         resp = requests.get(f"{api_url}/api/v1/health", timeout=2.0)
         data = resp.json() if resp.status_code == 200 else {}
+        reachable = resp.status_code == 200
     except Exception:
-        data = {
-            "status": "OFFLINE",
-            "model_loaded": False,
-            "backend": "Backend Disconnected",
-            "ram_used_gb": 0.0,
-            "ram_total_gb": 0.0,
-            "cpu_percent": 0.0,
-        }
+        data = {}
+        reachable = False
 
-    status_color = "#10B981" if data.get("status") == "HEALTHY" else "#EF4444"
-    model_status_text = "LOADED" if data.get("model_loaded") else "STANDBY / LAZY LOAD"
-    backend_text = data.get("backend", "Unknown Backend")
-    ram_str = f"{data.get('ram_used_gb', 0)} / {data.get('ram_total_gb', 0)} GB"
-    cpu_str = f"{data.get('cpu_percent', 0)}%"
+    status = data.get("status", "OFFLINE") if reachable else "OFFLINE"
+    backend = data.get("backend", "Disconnected")
+    ram_used = data.get("ram_used_gb")
+    uptime = _format_uptime(data.get("uptime_seconds"))
+
+    is_healthy = status == "HEALTHY"
+    dot_color = "#3DD68C" if is_healthy else "#F27060"
+    status_text_color = "#3DD68C" if is_healthy else "#F27060"
+
+    ram_display = f"{ram_used} GB" if ram_used is not None else "—"
 
     st.markdown(
         f"""
         <style>
         .diag-card {{
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            border-radius: 12px;
-            padding: 14px 18px;
-            margin-bottom: 16px;
-            font-family: 'Inter', sans-serif;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            padding: 14px 16px;
+            margin-bottom: 14px;
         }}
         .diag-header {{
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: #E2E8F0;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; align-items: center; justify-content: space-between;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em;
+            text-transform: uppercase; color: #C6D0E2; margin-bottom: 10px;
         }}
-        .diag-grid {{
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+        .diag-dot {{ width: 7px; height: 7px; border-radius: 50%; background: {dot_color}; display:inline-block; margin-right:6px; }}
+        .diag-row {{
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 5px 0; border-top: 1px solid rgba(255,255,255,0.08);
         }}
-        .diag-item {{
-            background: rgba(15, 23, 42, 0.5);
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }}
-        .diag-label {{
-            font-size: 0.72rem;
-            color: #94A3B8;
-            display: block;
-            margin-bottom: 2px;
-        }}
-        .diag-val {{
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: #F8FAFC;
-        }}
+        .diag-row:first-of-type {{ border-top: none; }}
+        .diag-label {{ font-size: 0.74rem; color: #9AABC9; }}
+        .diag-val {{ font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: #F5F6F8; font-weight: 600; }}
         </style>
 
         <div class="diag-card">
             <div class="diag-header">
-                <span>⚡ AI HARDWARE ACCELERATION</span>
-                <span style="color: {status_color}; font-size: 0.75rem;">● {data.get('status', 'OFFLINE')}</span>
+                <span>Engine Diagnostics</span>
+                <span style="color:{status_text_color};"><span class="diag-dot"></span>{status}</span>
             </div>
-            <div class="diag-grid">
-                <div class="diag-item">
-                    <span class="diag-label">INFERENCE BACKEND</span>
-                    <span class="diag-val" style="color: #38BDF8;">{backend_text}</span>
-                </div>
-                <div class="diag-item">
-                    <span class="diag-label">MODEL STATE</span>
-                    <span class="diag-val">{model_status_text}</span>
-                </div>
-                <div class="diag-item">
-                    <span class="diag-label">SYSTEM RAM</span>
-                    <span class="diag-val">{ram_str}</span>
-                </div>
-                <div class="diag-item">
-                    <span class="diag-label">CPU LOAD</span>
-                    <span class="diag-val">{cpu_str}</span>
-                </div>
+            <div class="diag-row">
+                <span class="diag-label">Backend</span>
+                <span class="diag-val">{backend}</span>
+            </div>
+            <div class="diag-row">
+                <span class="diag-label">RAM used</span>
+                <span class="diag-val">{ram_display}</span>
+            </div>
+            <div class="diag-row">
+                <span class="diag-label">Uptime</span>
+                <span class="diag-val">{uptime}</span>
             </div>
         </div>
         """,

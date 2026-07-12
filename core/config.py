@@ -38,9 +38,10 @@ class Config:
     Uses __slots__ for maximum attribute lookup speed during real-time inference.
     """
     # Model and Device Settings
-    model_path: str = field(default_factory=lambda: os.getenv("MODEL_PATH", r"D:\AI-local\models\qwen2.5-3b-int4"))
+    model_path: str = field(default_factory=lambda: os.getenv("MODEL_PATH", "models/qwen2.5-3b-int4"))
     device: str = field(default_factory=lambda: os.getenv("DEVICE", "CPU").upper())
     embed_model: str = field(default_factory=lambda: os.getenv("EMBED_MODEL", "all-MiniLM-L6-v2"))
+    mock_llm: bool = field(default_factory=lambda: os.getenv("MOCK_LLM", "False").lower() in ("true", "1", "yes"))
 
     # Storage paths
     chroma_dir: str = field(default_factory=lambda: os.getenv("CHROMA_DIR", "data/chroma"))
