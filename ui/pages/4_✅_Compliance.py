@@ -1,9 +1,13 @@
 """
-ui/pages/4__Compliance.py
+ui/pages/4_✅_Compliance.py
 ==========================
 Regulatory Compliance & Evidence Matrix Studio for Ops Brain Local.
-Provides deterministic gap analysis against OISD-116, Factory Act 1948, and PESO rules,
-displaying compliance scores and downloadable audit evidence packages.
+
+Per the current API contract, GET /api/v1/compliance returns the list of
+compliance rules/documents indexed in the system. This page reads that list
+defensively (several reasonable key names are checked) since the exact gap /
+evidence-package shape isn't pinned down in the contract — swap the
+`_extract_items()` mapping below to match your backend's exact field names.
 """
 
 import sys
@@ -18,102 +22,101 @@ import json
 
 st.set_page_config(page_title="Compliance Audit | Ops Brain Local", page_icon="🛡️", layout="wide")
 
+from ui.components.theme import inject_global_css, render_hero, render_section_label, status_pill
 from ui.components.privacy_banner import render_privacy_banner
 from ui.components.model_status import render_model_status
 
-render_privacy_banner()
+inject_global_css()
 
 with st.sidebar:
-    st.markdown("### ⚡ Diagnostics")
+    st.markdown("<p style='font-family:Space Grotesk; font-weight:700; color:#fff;'>Diagnostics</p>", unsafe_allow_html=True)
     render_model_status()
 
-st.markdown("<h1 style='color: #10B981;'> Regulatory Compliance & Evidence Matrix</h1>", unsafe_allow_html=True)
-st.markdown("<p style='color: #94A3B8;'>Deterministic compliance gap detection against OISD-116, OISD-GDN-192, Factory Act 1948, and PESO safety rules. Generate verified audit evidence packages instantly.</p>", unsafe_allow_html=True)
-st.markdown("---")
+render_privacy_banner()
+render_hero(
+    eyebrow="Compliance Audit",
+    title="Regulatory coverage, verified against the plant record.",
+    subtitle="Deterministic gap detection against OISD-116, OISD-GDN-192, the Factory Act 1948 and PESO safety rules.",
+    sheet_no="OB / 04",
+)
 
 API_URL = "http://127.0.0.1:8000"
 
-with st.spinner("Running deterministic compliance audit and evidence verification..."):
+
+def _extract_items(data):
+    """Best-effort extraction of a list of rule/regulation records from
+    whatever shape the backend returns."""
+    if isinstance(data, list):
+        return data
+    for key in ("regulations", "rules", "items", "gap_report", "regulations_indexed"):
+        if isinstance(data.get(key), list):
+            return data.get(key)
+    return []
+
+
+with st.spinner("Running compliance audit and evidence verification..."):
     try:
         resp = requests.get(f"{API_URL}/api/v1/compliance", timeout=10.0)
         if resp.status_code == 200:
-            data = resp.json()
-            gaps = data.get("gap_report", [])
-            ev_pkg = data.get("evidence_package", {})
-            regs = data.get("regulations_indexed", [])
-            
-            # Top Metrics
-            col1, col2, col3, col4 = st.columns(4)
-            with col1:
-                st.metric(" Compliance Score", f"{ev_pkg.get('compliance_score', 88.5)}%", delta="2.1% vs Q1")
-            with col2:
-                st.metric(" Open Safety Gaps", len(gaps), delta="-1 resolved", delta_color="inverse")
-            with col3:
-                st.metric(" Regulations Indexed", len(regs) or 5)
-            with col4:
-                st.metric(" Audit Package ID", ev_pkg.get("package_id", "EVID-8842"))
-                
-            st.markdown("---")
-            
-            # Evidence Matrix Table
-            st.markdown("### Deterministic Gap Report (Evidence Matrix)")
-            if gaps:
-                for idx, g in enumerate(gaps):
-                    sev = g.get("severity", "MEDIUM")
-                    status = g.get("status", "NON-COMPLIANT")
-                    badge_color = "#EF4444" if sev == "HIGH" else "#F59E0B"
-                    
+            raw = resp.json()
+            items = _extract_items(raw if isinstance(raw, (list, dict)) else {})
+
+            total = len(items)
+            open_gaps = sum(1 for it in items if str(it.get("status", "")).upper() not in ("COMPLIANT", "OK", "PASS"))
+            compliant = total - open_gaps
+
+            render_section_label("01", "Audit Summary")
+            m1, m2, m3 = st.columns(3)
+            with m1:
+                st.metric("Regulations indexed", total)
+            with m2:
+                st.metric("Compliant", compliant)
+            with m3:
+                st.metric("Open gaps", open_gaps)
+
+            render_section_label("02", "Regulation Register")
+
+            if items:
+                for idx, it in enumerate(items):
+                    clause = it.get("clause") or it.get("rule_id") or it.get("id") or f"ITEM-{idx+1}"
+                    title = it.get("title") or it.get("requirement") or it.get("name") or "Untitled requirement"
+                    standard = it.get("standard") or it.get("target_standard") or "—"
+                    status = str(it.get("status", "PENDING")).upper()
+                    severity = str(it.get("severity", "")).upper()
+                    asset = it.get("asset", "GEN")
+
+                    tone = "success" if status in ("COMPLIANT", "OK", "PASS") else ("danger" if severity == "HIGH" else "warning")
+
                     st.markdown(
                         f"""
-                        <style>
-                        .gap-card {{
-                            background: rgba(30, 41, 59, 0.7);
-                            border-left: 4px solid {badge_color};
-                            padding: 16px 20px;
-                            border-radius: 8px;
-                            margin-bottom: 15px;
-                            font-family: 'Inter', sans-serif;
-                        }}
-                        </style>
-                        <div class="gap-card">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                                <span style="font-family: 'Outfit'; font-weight: 700; font-size: 1.05rem; color: #F8FAFC;">
-                                    [{g.get('asset', 'GEN')}] {g.get('clause')} &mdash; {status}
+                        <div style="background:#FFFFFF; border:1px solid #E2E6ED; border-left:4px solid
+                            {'#12875D' if tone=='success' else ('#C0362C' if tone=='danger' else '#B7791F')};
+                            border-radius:8px; padding:16px 20px; margin-bottom:12px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                                <span style="font-family:'Space Grotesk',sans-serif; font-weight:700; color:#0B1F3A;">
+                                    <span style="font-family:'IBM Plex Mono',monospace; color:#51607A; font-size:0.8rem;">[{asset}]</span> {clause}
                                 </span>
-                                <span style="background: {badge_color}; color: white; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700;">
-                                    SEVERITY: {sev}
-                                </span>
+                                {status_pill(status, tone)}
                             </div>
-                            <p style="color: #CBD5E1; font-size: 0.9rem; margin-bottom: 10px;"><strong>Requirement:</strong> {g.get('requirement')}</p>
-                            <p style="color: #F87171; font-size: 0.9rem; margin-bottom: 10px;"><strong>Gap Identified:</strong> {g.get('gap_description')}</p>
-                            <div style="background: rgba(16, 185, 129, 0.1); padding: 8px 12px; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.3);">
-                                <span style="color: #34D399; font-size: 0.85rem; font-weight: 600;">🛠️ Remediating Action:</span>
-                                <span style="color: #E2E8F0; font-size: 0.85rem;"> {g.get('remediation')}</span>
-                            </div>
+                            <p style="color:#51607A; font-size:0.87rem; margin-bottom:4px;">
+                                <strong style="color:#0B1F3A;">Standard:</strong> {standard}
+                            </p>
+                            <p style="color:#51607A; font-size:0.87rem;">{title}</p>
                         </div>
                         """,
                         unsafe_allow_html=True,
                     )
             else:
-                st.success(" All audited equipment assets are 100% compliant with indexed safety regulations!")
-                
-            st.markdown("---")
-            
-            # Evidence Package Download & Summary
-            st.markdown("### Verified Audit Evidence Package")
-            st.markdown(f"<p style='color: #94A3B8;'>Target Standard: <strong>{ev_pkg.get('target_standard')}</strong> | Generated: {ev_pkg.get('generated_timestamp')}</p>", unsafe_allow_html=True)
-            
-            ev_docs = ev_pkg.get("evidence_documents", [])
-            for doc in ev_docs:
-                st.markdown(f"-- **[{doc.get('doc_id')}]** {doc.get('title')} &mdash; *(Status: `{doc.get('status')}`)*")
-                
+                st.info("No compliance records returned by the backend yet.")
+
+            render_section_label("03", "Evidence Package")
             st.download_button(
-                label=" Download Audit Evidence Package (JSON)",
-                data=json.dumps(ev_pkg, indent=2),
-                file_name=f"audit_evidence_{ev_pkg.get('package_id')}.json",
+                label="⬇ Download Audit Snapshot (JSON)",
+                data=json.dumps(raw, indent=2),
+                file_name="compliance_snapshot.json",
                 mime="application/json",
             )
         else:
-            st.error(f" Failed to retrieve compliance audit: {resp.text}")
+            st.error(f"Failed to retrieve compliance audit: {resp.text}")
     except Exception as e:
-        st.error(f" Connection error to local API backend: {e}")
+        st.error(f"Connection error to local API backend: {e}")

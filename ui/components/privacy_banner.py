@@ -1,96 +1,79 @@
 """
 ui/components/privacy_banner.py
 ===============================
-Renders an ultra-premium, glowing 100% Offline / Air-Gapped security badge
-using glassmorphism CSS and micro-animations.
+Top-of-page system status strip. Same message as before (100% on-premise,
+zero cloud telemetry) redrawn as a light instrument-panel readout instead
+of a dark glowing badge.
 """
 
 import streamlit as st
 
 
-def render_privacy_banner():
-    """Render the top-bar offline security and air-gap privacy banner."""
+def render_privacy_banner() -> None:
+    """Render the top-bar offline / air-gap status strip."""
     st.markdown(
         """
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&family=Inter:wght@400;600&display=swap');
-
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.4); }
-            50% { box-shadow: 0 0 15px rgba(16, 185, 129, 0.8), 0 0 30px rgba(16, 185, 129, 0.4); }
-            100% { box-shadow: 0 0 5px rgba(16, 185, 129, 0.4); }
+        @keyframes led-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.45; }
         }
-
-        .airgap-banner {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(30, 41, 59, 0.85) 100%);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 12px;
-            padding: 10px 20px;
-            margin-bottom: 20px;
+        .status-strip {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            background: #FFFFFF;
+            border: 1px solid #E2E6ED;
+            border-left: 4px solid #12875D;
+            border-radius: 10px;
+            padding: 10px 18px;
+            margin-bottom: 22px;
             font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
         }
-
-        .airgap-banner:hover {
-            border-color: rgba(16, 185, 129, 0.6);
-            transform: translateY(-1px);
-        }
-
-        .airgap-left {
+        .status-strip-left {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-
-        .led-indicator {
-            width: 10px;
-            height: 10px;
-            background-color: #10B981;
-            border-radius: 50%;
-            animation: pulse-glow 2s infinite;
+        .status-led {
+            width: 9px; height: 9px; border-radius: 50%;
+            background: #12875D;
+            animation: led-pulse 2.2s ease-in-out infinite;
+            box-shadow: 0 0 0 3px rgba(18,135,93,0.15);
         }
-
-        .airgap-title {
-            font-family: 'Outfit', sans-serif;
+        .status-strip-title {
+            font-family: 'Space Grotesk', sans-serif;
             font-weight: 700;
-            font-size: 0.95rem;
-            color: #F8FAFC;
-            letter-spacing: 0.5px;
-        }
-
-        .airgap-desc {
             font-size: 0.85rem;
-            color: #94A3B8;
+            color: #0B1F3A;
+            letter-spacing: 0.02em;
         }
-
-        .airgap-badge {
-            background: rgba(16, 185, 129, 0.15);
-            color: #34D399;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+        .status-strip-desc {
+            font-size: 0.82rem;
+            color: #51607A;
+        }
+        .status-strip-badge {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #0F5C3E;
+            background: #E4F5EC;
+            border: 1px solid #BEE7D3;
             padding: 4px 12px;
             border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
         </style>
 
-        <div class="airgap-banner">
-            <div class="airgap-left">
-                <div class="led-indicator"></div>
+        <div class="status-strip">
+            <div class="status-strip-left">
+                <div class="status-led"></div>
                 <div>
-                    <span class="airgap-title">AIR-GAPPED & OFFLINE SECURE</span>
-                    <span class="airgap-desc"> &mdash; Zero cloud telemetry. All weights, RAG indexes, and LLM inference run 100% locally.</span>
+                    <span class="status-strip-title">AIR-GAPPED &amp; OFFLINE</span>
+                    <span class="status-strip-desc"> &mdash; zero cloud telemetry. Weights, indexes and inference all run on-premise.</span>
                 </div>
             </div>
-            <div class="airgap-badge">🔒 ON-PREMISE ONLY</div>
+            <div class="status-strip-badge">ON-PREMISE ONLY</div>
         </div>
         """,
         unsafe_allow_html=True,
