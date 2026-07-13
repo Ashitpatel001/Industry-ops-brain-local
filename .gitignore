@@ -1,37 +1,71 @@
-# Python build artifacts
+# ==============================================================================
+# Ops Brain Local — Git Ignore Configuration
+# Ensures only clean source code is tracked for GitHub / Hackathon Judges
+# ==============================================================================
+
+# Python Virtual Environments & Cache
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
 .pytest_cache/
 .coverage
 htmlcov/
-
-# Virtual Environments
 .venv/
 venv/
 ENV/
+env/
 
-# Project Specific Data & Databases
+# Node.js & Next.js Build Artifacts (`web/`)
+node_modules/
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+next-env.d.ts
+
+# Project Data, Databases & Heavy Vector Stores
+# (Keep directory structure via .gitkeep, ignore generated DBs and chunks)
 data/uploads/*
 !data/uploads/.gitkeep
 data/chroma/*
 !data/chroma/.gitkeep
 data/*.pkl
 data/*.db
+data/*.sqlite
+data/*.sqlite3
 
-# Model downloads (stored locally, too large for git)
+# Local AI Models & Quantized Weights (too large for Git)
 models/*
 !models/.gitkeep
 !models/README.md
 
-# OS specific
+# Environment Variables & Secrets
+.env
+.env.*
+!.env.example
+
+# IDE, OS & System Files
+.vscode/
+.idea/
+.gemini/
+brain/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 .DS_Store
 Thumbs.db
 
-# Configuration and Local Environment
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# Extra Markdown Files (only track main README.md)
+*.md
+!README.md
+!models/README.md

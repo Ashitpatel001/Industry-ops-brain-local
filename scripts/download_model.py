@@ -39,7 +39,7 @@ def check_openvino_model(output_dir: Path) -> bool:
     xml_files = list(output_dir.glob("*.xml")) if output_dir.exists() else []
     bin_files = list(output_dir.glob("*.bin")) if output_dir.exists() else []
     if xml_files and bin_files:
-        logger.info(f"✅ OpenVINO INT4 model already exists in {output_dir}")
+        logger.info(f"[INFO] OpenVINO INT4 model already exists in {output_dir}")
         return True
     return False
 
@@ -50,9 +50,9 @@ def download_openvino(model_id: str, output_dir: Path):
         return
 
     logger.info("==========================================================================")
-    logger.info(f"🚀 Downloading & Converting to OpenVINO INT4: {model_id}")
-    logger.info(f"📂 Output Directory: {output_dir}")
-    logger.info("⚡ This will download ~7.6GB of weights and compress to ~2.2GB INT4 IR.")
+    logger.info(f"[INFO] Downloading & Converting to OpenVINO INT4: {model_id}")
+    logger.info(f"[INFO] Output Directory: {output_dir}")
+    logger.info("[INFO] This will download ~7.6GB of weights and compress to ~2.2GB INT4 IR.")
     logger.info("==========================================================================")
 
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -73,17 +73,17 @@ def download_openvino(model_id: str, output_dir: Path):
     try:
         logger.info(f"Running command: {' '.join(cmd)}")
         subprocess.run(cmd, check=True)
-        logger.info(f"✅ Successfully exported OpenVINO INT4 model to {output_dir}")
+        logger.info(f"[SUCCESS] Successfully exported OpenVINO INT4 model to {output_dir}")
     except subprocess.CalledProcessError as e:
-        logger.error(f"❌ Failed to export OpenVINO model: {e}")
-        logger.info("💡 Make sure you have installed: pip install openvino-genai optimum[openvino] nncf transformers")
+        logger.error(f"[ERROR] Failed to export OpenVINO model: {e}")
+        logger.info("[INFO] Make sure you have installed: pip install openvino-genai optimum[openvino] nncf transformers")
         raise
     except FileNotFoundError:
-        logger.error("❌ 'optimum-cli' command not found in PATH.")
-        logger.info("💡 Please activate your virtual environment and run: pip install optimum[openvino] nncf openvino-genai transformers")
+        logger.error("[ERROR] 'optimum-cli' command not found in PATH.")
+        logger.info("[INFO] Please activate your virtual environment and run: pip install optimum[openvino] nncf openvino-genai transformers")
         raise
     except Exception as e:
-        logger.error(f"❌ Unexpected error during Qwen model download/export: {e}")
+        logger.error(f"[ERROR] Unexpected error during Qwen model download/export: {e}")
         raise
 
 
@@ -106,9 +106,9 @@ def main():
 
     try:
         download_openvino(args.model_id, args.ov_dir)
-        logger.info("🎉 Qwen INT4 model setup complete! You can now run Ops Brain Local offline.")
+        logger.info("[SUCCESS] Qwen INT4 model setup complete! You can now run Ops Brain Local offline.")
     except Exception as e:
-        logger.error(f"❌ Setup failed: {e}")
+        logger.error(f"[ERROR] Setup failed: {e}")
         sys.exit(1)
 
 

@@ -61,7 +61,7 @@ def get_ram_usage_mb() -> int:
 
 def run_benchmark_suite():
     logger.info("==========================================================================")
-    logger.info("⚡ OPS BRAIN LOCAL — INFERENCE SPEED & MEMORY BENCHMARK")
+    logger.info("[INFO] OPS BRAIN LOCAL — INFERENCE SPEED & MEMORY BENCHMARK")
     logger.info("==========================================================================")
 
     # Attempt to load LocalLLM from core
@@ -147,7 +147,7 @@ def print_mock_benchmark_table():
     print("| **Time to First Token (TTFT)**| **~120 ms** | ~350 ms |")
     print("| **Throughput (Tokens/sec)** | **~35 tok/s** | **~16 tok/s** |")
     print("| **End-to-End Query Latency**| **~0.6 s** | **~1.8 s** |")
-    print("| **Offline Capable?** | ✅ YES (0 bytes to cloud) | ✅ YES (0 bytes to cloud) |")
+    print("| **Offline Capable?** | [SUCCESS] YES (0 bytes to cloud) | [SUCCESS] YES (0 bytes to cloud) |")
     print("\n*Note: This table reflects the target architectural benchmarks from OSDHack 2026 winning spec.*")
 
 

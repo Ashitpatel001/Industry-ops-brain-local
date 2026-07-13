@@ -52,7 +52,7 @@ def ensure_seed_json_files():
     # 1. Assets
     assets_file = SEED_DIR / "assets.json"
     if not assets_file.exists() or assets_file.stat().st_size == 0:
-        logger.info(f"🌱 Generating seed assets data -> {assets_file}")
+        logger.info(f"[INFO] Generating seed assets data -> {assets_file}")
         assets_data = [
             {"asset_tag": "P-204", "name": "Crude Charge Pump A", "type": "Centrifugal Pump", "criticality": "HIGH", "process_unit": "Unit-5 (CDU)", "mtbf_days": 67, "status": "WARNING", "description": "Primary feed pump for crude distillation column. History of mechanical seal failures."},
             {"asset_tag": "P-101", "name": "Reflux Pump B", "type": "Centrifugal Pump", "criticality": "MEDIUM", "process_unit": "Unit-2 (VDU)", "mtbf_days": 180, "status": "OPERATIONAL", "description": "Overhead reflux pump for vacuum tower."},
@@ -71,7 +71,7 @@ def ensure_seed_json_files():
     # 2. Failure Modes
     fmodes_file = SEED_DIR / "failure_modes.json"
     if not fmodes_file.exists() or fmodes_file.stat().st_size == 0:
-        logger.info(f"🌱 Generating seed failure modes data -> {fmodes_file}")
+        logger.info(f"[INFO] Generating seed failure modes data -> {fmodes_file}")
         fmodes_data = [
             {"mode_id": "FM-001", "name": "Mechanical Seal Failure", "category": "Mechanical Wear", "description": "Leakage across pump mechanical seal faces due to thermal shock, dry running, or abrasive particulates.", "typical_cause": "Improper flushing plan (Plan 53A pressure loss) or excessive vibration.", "recommended_action": "Inspect seal cartridge, verify seal flush pressure, and check shaft alignment."},
             {"mode_id": "FM-002", "name": "Bearing Seizure / Wear", "category": "Mechanical Wear", "description": "Overheating and spalling of rolling element bearings.", "typical_cause": "Lubrication starvation, oil contamination, or misalignment.", "recommended_action": "Perform vibration spectrum analysis, flush lube oil housing, and replace bearings."},
@@ -85,7 +85,7 @@ def ensure_seed_json_files():
     # 3. Work Orders
     wos_file = SEED_DIR / "work_orders.json"
     if not wos_file.exists() or wos_file.stat().st_size == 0:
-        logger.info(f"🌱 Generating seed work orders data -> {wos_file}")
+        logger.info(f"[INFO] Generating seed work orders data -> {wos_file}")
         wos_data = [
             {"wo_id": "WO-10234", "asset_tag": "P-204", "title": "Emergency Mechanical Seal Replacement", "description": "Primary mechanical seal failed causing hydrocarbons to leak into atmosphere. Unit tripped by operator. Replaced double mechanical seal cartridge.", "failure_mode": "Mechanical Seal Failure", "date_created": "2024-01-15", "status": "COMPLETED", "cost": 12500, "downtime_hours": 18},
             {"wo_id": "WO-10552", "asset_tag": "P-204", "title": "Seal Flush Plan 53A Pressure Drop Investigation", "description": "Barrier fluid pressure dropped below chamber pressure. Found micro-leak in accumulator fitting. Replaced fitting and recharged N2.", "failure_mode": "Mechanical Seal Failure", "date_created": "2024-02-28", "status": "COMPLETED", "cost": 1800, "downtime_hours": 4},
@@ -101,7 +101,7 @@ def ensure_seed_json_files():
     # 4. Incidents
     inc_file = SEED_DIR / "incidents.json"
     if not inc_file.exists() or inc_file.stat().st_size == 0:
-        logger.info(f"🌱 Generating seed incidents data -> {inc_file}")
+        logger.info(f"[INFO] Generating seed incidents data -> {inc_file}")
         inc_data = [
             {"incident_id": "INC-2024-001", "title": "Hydrocarbon Flash Fire near P-204", "date_occurred": "2024-01-15", "severity": "HIGH", "asset_tag": "P-204", "root_cause": "Catastrophic mechanical seal blowout resulting in crude oil spray onto hot adjacent steam header.", "failure_mode": "Mechanical Seal Failure", "preventive_action": "Upgrade seal to dual pressurized cartridge (API 682 Plan 53B) and install acoustic leak detection."},
             {"incident_id": "INC-2024-002", "title": "Near-Miss Confined Space Entry at V-205", "date_occurred": "2024-03-22", "severity": "CRITICAL", "asset_tag": "V-205", "root_cause": "Contractor team attempted vessel entry without conducting atmospheric oxygen test or obtaining signed permit.", "failure_mode": "Atmospheric O2 Testing Failure", "preventive_action": "Mandatory stand-down training on OISD-GDN-192 and implementation of physical lockout hasps on vessel manways."},
@@ -131,14 +131,14 @@ def ensure_seed_json_files():
     for filename, data in reg_files.items():
         filepath = REGS_DIR / filename
         if not filepath.exists() or filepath.stat().st_size == 0:
-            logger.info(f"🌱 Generating seed regulation data -> {filepath}")
+            logger.info(f"[INFO] Generating seed regulation data -> {filepath}")
             with open(filepath, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2)
 
 
 def init_sqlite_db():
     """Initialize SQLite database with schema for assets, work orders, incidents, regulations, docs, and audit logs."""
-    logger.info(f"📦 Initializing SQLite database -> {DB_PATH}")
+    logger.info(f"[INFO] Initializing SQLite database -> {DB_PATH}")
     if DB_PATH.exists():
         DB_PATH.unlink()  # Clean rebuild during seeding
 
@@ -263,7 +263,7 @@ def seed_sqlite_and_graph(conn: sqlite3.Connection):
     cursor = conn.cursor()
     G = nx.MultiDiGraph()
 
-    logger.info("🕸️ Populating SQLite tables and building NetworkX knowledge graph...")
+    logger.info("[INFO] Populating SQLite tables and building NetworkX knowledge graph...")
 
     # Load Assets
     with open(SEED_DIR / "assets.json", "r", encoding="utf-8") as f:
@@ -329,16 +329,16 @@ def seed_sqlite_and_graph(conn: sqlite3.Connection):
     conn.commit()
 
     # Save NetworkX Graph
-    logger.info(f"💾 Saving NetworkX graph ({G.number_of_nodes()} nodes, {G.number_of_edges()} edges) -> {GRAPH_PATH}")
+    logger.info(f"[INFO] Saving NetworkX graph ({G.number_of_nodes()} nodes, {G.number_of_edges()} edges) -> {GRAPH_PATH}")
     with open(GRAPH_PATH, "wb") as f:
         pickle.dump(G, f)
 
-    logger.info("✅ Seeding complete! Database and Knowledge Graph ready.")
+    logger.info("[SUCCESS] Seeding complete! Database and Knowledge Graph ready.")
 
 
 def main():
     logger.info("==========================================================================")
-    logger.info("🌱 OPS BRAIN LOCAL — INDUSTRIAL DATABASE & GRAPH SEEDER")
+    logger.info("[INFO] OPS BRAIN LOCAL — INDUSTRIAL DATABASE & GRAPH SEEDER")
     logger.info("==========================================================================")
     
     ensure_seed_json_files()
@@ -346,7 +346,7 @@ def main():
     seed_sqlite_and_graph(conn)
     conn.close()
     
-    logger.info("🎉 All seed operations completed successfully!")
+    logger.info("[SUCCESS] All seed operations completed successfully!")
 
 
 if __name__ == "__main__":

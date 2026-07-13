@@ -14,13 +14,13 @@ if hasattr(sys.stdout, 'reconfigure'):
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Ops Brain Local Launcher")
-    parser.add_argument("--ui", action="store_true", help="Launch Streamlit UI only")
-    parser.add_argument("--api", action="store_true", help="Launch FastAPI API only")
+    parser.add_argument("--ui", action="store_true", help="Launch Next.js Web UI only (port 3000)")
+    parser.add_argument("--api", action="store_true", help="Launch FastAPI API only (port 8000)")
     parser.add_argument("--demo", action="store_true", help="Load seed data and run both UI + API")
     return parser.parse_args()
 
 def start_api():
-    print("🚀 Starting FastAPI backend on http://127.0.0.1:8000...")
+    print("[INFO] Starting FastAPI backend on http://127.0.0.1:8000...")
     # Launch uvicorn as subprocess
     env = os.environ.copy()
     return subprocess.Popen([
@@ -29,19 +29,19 @@ def start_api():
     ], env=env)
 
 def start_ui():
-    print("🌐 Starting Streamlit UI on http://localhost:8501...")
+    print("[INFO] Starting Next.js Web UI on http://localhost:3000...")
     env = os.environ.copy()
-    return subprocess.Popen([
-        sys.executable, "-m", "streamlit", "run", "ui/app.py"
-    ], env=env)
+    web_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "web")
+    npm_cmd = "npm.cmd" if os.name == "nt" else "npm"
+    return subprocess.Popen([npm_cmd, "run", "dev"], cwd=web_dir, env=env)
 
 def run_seed():
-    print("🌱 Seeding initial asset databases, work orders, and regulations...")
+    print("[INFO] Seeding initial asset databases, work orders, and regulations...")
     try:
         subprocess.run([sys.executable, "scripts/seed.py"], check=True)
-        print("✅ Seeding completed successfully.")
+        print("[SUCCESS] Seeding completed successfully.")
     except subprocess.CalledProcessError as e:
-        print(f"❌ Seeding failed: {e}")
+        print(f"[ERROR] Seeding failed: {e}")
         sys.exit(1)
 
 def main():
@@ -62,8 +62,8 @@ def main():
             api_proc = start_api()
             processes.append(api_proc)
             
-            # Wait for API backend to be online before opening Streamlit UI
-            print("⏳ Waiting for API backend to initialize and bind to port 8000...")
+            # Wait for API backend to be online before launching Next.js Web UI
+            print("[INFO] Waiting for API backend to initialize and bind to port 8000...")
             import urllib.request
             api_ready = False
             for _ in range(30):
@@ -75,9 +75,9 @@ def main():
                 except Exception:
                     time.sleep(1)
             if api_ready:
-                print("✅ API backend is online and ready!")
+                print("[SUCCESS] API backend is online and ready!")
             else:
-                print("⚠️ API backend took longer than expected to respond, launching UI anyway...")
+                print("[WARNING] API backend took longer than expected to respond, launching UI anyway...")
             
         if run_ui_flag:
             ui_proc = start_ui()
@@ -88,12 +88,12 @@ def main():
             for proc in processes:
                 if proc.poll() is not None:
                     # One of the processes crashed or ended
-                    print(f"⚠️ Subprocess {proc.args} exited with code {proc.returncode}")
+                    print(f"[WARNING] Subprocess {proc.args} exited with code {proc.returncode}")
                     return
             time.sleep(1)
             
     except KeyboardInterrupt:
-        print("\n👋 Stopping Ops Brain Local services...")
+        print("\n[INFO] Stopping Ops Brain Local services...")
         for proc in processes:
             proc.terminate()
             proc.wait()

@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --bg: #F5F6F8;
+  --surface: #FFFFFF;
+  --ink: #0B1F3A;
+  --ink-2: #51607A;
+  --border: #E2E6ED;
+  --navy: #14315C;
+  --amber: #F2A73B;
+  --blue: #2563EB;
+  --success: #12875D;
+  --warning: #B7791F;
+  --danger: #C0362C;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-border-subtle: var(--border);
+  --color-navy: var(--navy);
+  --color-amber: var(--amber);
+  --color-blue: var(--blue);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --font-sans: 'Inter', -apple-system, sans-serif;
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  background-image: linear-gradient(180deg, rgba(20,49,92,0.03) 0%, rgba(20,49,92,0) 240px);
+  min-height: 100vh;
+}
+
+/* Custom blueprint grid background utility for hero banners and cards */
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.blueprint-grid-light {
+  background-image:
+    linear-gradient(rgba(20, 49, 92, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 49, 92, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Engineering card drawing sheet corner ticks */
+.drawing-sheet {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(11, 31, 58, 0.04);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd3e0;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
