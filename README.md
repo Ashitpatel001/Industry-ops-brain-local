@@ -132,10 +132,10 @@ python run.py --demo
 ```
 
 **Terminal Output Expectations:**
-1. `[INFO] Seeding initial asset databases, work orders, and regulations...`
-2. `[INFO] Populating SQLite tables and building NetworkX knowledge graph (37 nodes, 37 edges)...`
-3. `[INFO] Starting FastAPI backend on http://127.0.0.1:8000...`
-4. `[INFO] Starting Next.js Web UI on http://localhost:3000...`
+1. `Seeding initial asset databases, work orders, and regulations...`
+2. `Populating SQLite tables and building NetworkX knowledge graph (37 nodes, 37 edges)...`
+3. `Starting FastAPI backend on http://127.0.0.1:8000...`
+4. `Starting Next.js Web UI on http://localhost:3000...`
 5. `[SUCCESS] API backend is online and ready!`
 
 ### Step 3: Verifying the System Modules
