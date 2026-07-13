@@ -5,34 +5,6 @@
 [![Offline First](https://img.shields.io/badge/Offline--First-100%25-brightgreen.svg)]()
 [![Hardware Acceleration](https://img.shields.io/badge/OpenVINO-INT4%20%7C%20FP16-purple.svg)]()
 
----
-
-## Demo Video & System Screenshots
-
-### Watch the 3-Minute Live Architecture Walkthrough
-👉 **[Click Here to Watch the Ops Brain Local Demo Video on YouTube / Loom](https://www.youtube.com/watch?v=EXAMPLE_DEMO_LINK)**  
-*(Replace the link above with your actual recorded hackathon pitch / screen recording)*
-
-### System UI & Walkthrough Screenshots
-Below are the core interfaces of our `Next.js 15` air-gapped industrial command center (`http://localhost:3000`).  
-*(To display your actual screenshots on GitHub, save your screen captures into `docs/screenshots/` matching the exact filenames below)*
-
-#### 1. Executive Operations Command Center (`/`)
-![Command Center Executive Dashboard](docs/screenshots/01_command_center.png)
-
-#### 2. Ask Plant Co-Pilot & Real-Time WebSocket Token Streaming (`/copilot`)
-![Ask Plant Co-Pilot with WebSocket Streaming](docs/screenshots/02_copilot_streaming.png)
-
-#### 3. Interactive HTML5 Canvas Knowledge Graph Explorer (`/graph`)
-![HTML5 Canvas Knowledge Graph Explorer](docs/screenshots/03_knowledge_graph.png)
-
-#### 4. Deterministic Statutory Compliance Audit Matrix (`/compliance`)
-![Deterministic Compliance Gap Matrix](docs/screenshots/04_compliance_audit.png)
-
-#### 5. Reliability Engineering & 5-Why Root Cause Analysis Studio (`/maintenance`)
-![Reliability & 5-Why Root Cause Analysis](docs/screenshots/05_maintenance_rca.png)
-
----
 
 ## 1. Executive Summary & Problem Statement
 
@@ -58,6 +30,34 @@ Modern heavy industries—including oil & gas refineries, chemical plants, power
   - **Ask Plant Co-Pilot Agent:** Streams real-time answers with verified citations and visual confidence pills (`HIGH`, `MEDIUM`, `LOW`).
   - **Maintenance & RCA Agent:** Executes multi-stage 5-Why causal chain analyses (`RCA-F71895`), ranks equipment risk via `(Criticality Factor * 1000) / MTBF`, and dispatches CMMS work orders.
   - **Compliance Audit Agent:** Performs deterministic matrix validation against mandatory industrial safety standards (OISD-116, Factory Act 1948) and exports structured `.JSON` evidence packages.
+
+---
+
+
+
+## Demo Video & System Screenshots
+
+### Watch the 3-Minute Live Architecture Walkthrough
+👉 **[Click Here to Watch the Ops Brain Local Demo Video on YouTube / Loom](https://www.youtube.com/watch?v=EXAMPLE_DEMO_LINK)**  
+*(Replace the link above with your actual recorded hackathon pitch / screen recording)*
+
+### System UI & Walkthrough Screenshots
+Below are the core interfaces of our `Next.js 15` air-gapped industrial command center (`http://localhost:3000`).  
+
+#### 1. Executive Operations Command Center (`/`)
+![Command Center Executive Dashboard](docs/screenshots/01_command_center.png)
+
+#### 2. Ask Plant Co-Pilot & Real-Time WebSocket Token Streaming (`/copilot`)
+![Ask Plant Co-Pilot with WebSocket Streaming](docs/screenshots/02_copilot_streaming.png)
+
+#### 3. Interactive HTML5 Canvas Knowledge Graph Explorer (`/graph`)
+![HTML5 Canvas Knowledge Graph Explorer](docs/screenshots/03_knowledge_graph.png)
+
+#### 4. Deterministic Statutory Compliance Audit Matrix (`/compliance`)
+![Deterministic Compliance Gap Matrix](docs/screenshots/04_compliance_audit.png)
+
+#### 5. Reliability Engineering & 5-Why Root Cause Analysis Studio (`/maintenance`)
+![Reliability & 5-Why Root Cause Analysis](docs/screenshots/05_maintenance_rca.png)
 
 ---
 
