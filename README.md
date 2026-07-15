@@ -22,7 +22,7 @@ Evaluation guidelines for an impressive, enterprise-grade submission, our comple
 
 ## 1. Executive Summary & Problem Statement
 
-Modern heavy industries—including oil & gas refineries, chemical plants, power generation facilities, and discrete manufacturing—operate under extreme regulatory scrutiny and continuous production pressure. When critical machinery fails or safety audits occur, shift engineers and reliability managers must immediately cross-reference thousands of pages of OEM equipment manuals, piping and instrumentation diagrams (P&IDs), standard operating procedures (SOPs), and statutory safety regulations.
+Modern heavy industries including oil & gas refineries, chemical plants, power generation facilities, and discrete manufacturing operate under extreme regulatory scrutiny and continuous production pressure. When critical machinery fails or safety audits occur, shift engineers and reliability managers must immediately cross-reference thousands of pages of OEM equipment manuals, piping and instrumentation diagrams (P&IDs), standard operating procedures (SOPs), and statutory safety regulations.
 
 ### The Critical Limitations of Cloud-Based AI in Industry:
 1. **Severe Security & IP Risks:** Industrial facilities cannot upload proprietary engineering drawings, P&IDs, process formulas, or hazardous incident logs to external cloud LLM APIs (e.g., OpenAI, Anthropic) without violating strict corporate IP and government cybersecurity protocols.
