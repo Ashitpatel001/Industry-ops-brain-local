@@ -25,18 +25,18 @@ class DoclingParser:
     def __init__(self):
         self._converter = None
         self._docling_available = False
-        self._init_docling()
 
-    def _init_docling(self) -> None:
-        try:
-            from docling.document_converter import DocumentConverter
-            self._converter = DocumentConverter()
-            self._docling_available = True
-            logger.info("Docling DocumentConverter initialized successfully.")
-        except ImportError as e:
-            logger.warning(f"Docling not installed ({e}). Using robust fallback parsers.")
-        except Exception as e:
-            logger.warning(f"Error initializing Docling ({e}). Using robust fallback parsers.")
+    def _get_converter(self):
+        if self._converter is None:
+            try:
+                from docling.document_converter import DocumentConverter
+                self._converter = DocumentConverter()
+                self._docling_available = True
+                logger.info("Docling DocumentConverter initialized successfully.")
+            except Exception as e:
+                logger.warning(f"Error initializing Docling ({e}). Using robust fallback parsers.")
+                self._docling_available = False
+        return self._converter
 
     def parse(self, file_path: Union[str, Path]) -> Dict[str, Any]:
         """
@@ -61,14 +61,26 @@ class DoclingParser:
 
         logger.info(f"Parsing document: {path.name} ({file_type})...")
 
-        # 1. Attempt primary Docling conversion for supported documents
-        if self._docling_available and ext in [".pdf", ".docx", ".doc", ".png", ".jpg", ".jpeg"]:
+        # 1. For PDFs, prioritize instant local pypdf extraction first (avoids ~560MB layout model downloads)
+        if ext == ".pdf":
             try:
-                return self._parse_with_docling(path, file_type)
-            except Exception as e:
-                logger.warning(f"Docling conversion failed for {path.name}: {e}. Attempting fallback.")
+                pdf_res = self._parse_pdf_fallback(path, file_type)
+                if pdf_res.get("markdown") and len(pdf_res["markdown"].strip()) > 50:
+                    logger.info(f"Successfully extracted {pdf_res['pages']} pages from {path.name} via fast local pypdf.")
+                    return pdf_res
+            except Exception as pdf_e:
+                logger.debug(f"Fast local PDF extraction encountered an issue ({pdf_e}). Checking deep OCR...")
 
-        # 2. Robust format-specific fallbacks
+        # 2. Attempt Docling conversion for images or scanned PDFs requiring OCR
+        if ext in [".png", ".jpg", ".jpeg", ".docx", ".doc"]:
+            conv = self._get_converter()
+            if conv:
+                try:
+                    return self._parse_with_docling(path, file_type)
+                except Exception as e:
+                    logger.warning(f"Docling conversion failed for {path.name}: {e}. Attempting fallback.")
+
+        # 3. Robust format-specific fallbacks
         if ext in [".xlsx", ".xls", ".csv"]:
             return self._parse_tabular(path, file_type)
         elif ext == ".json":

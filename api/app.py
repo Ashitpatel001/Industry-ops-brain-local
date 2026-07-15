@@ -182,7 +182,7 @@ async def ingest_document(file: UploadFile = File(...), doc_type: str = "Procedu
     """Upload and ingest an industrial document (PDF, XLSX, DOCX, etc.) into vector store and graph."""
     doc_id = f"DOC-{uuid.uuid4().hex[:8].upper()}"
     cfg = get_config()
-    upload_dir = cfg.data_dir / "uploads"
+    upload_dir = Path(cfg.upload_dir)
     upload_dir.mkdir(parents=True, exist_ok=True)
     
     file_path = upload_dir / f"{doc_id}_{file.filename}"

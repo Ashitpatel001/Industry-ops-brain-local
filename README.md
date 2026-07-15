@@ -136,7 +136,7 @@ python run.py --demo
 2. `Populating SQLite tables and building NetworkX knowledge graph (37 nodes, 37 edges)...`
 3. `Starting FastAPI backend on http://127.0.0.1:8000...`
 4. `Starting Next.js Web UI on http://localhost:3000...`
-5. `[SUCCESS] API backend is online and ready!`
+5. `API backend is online and ready!`
 
 ### Step 3: Verifying the System Modules
 

@@ -27,9 +27,14 @@ class LocalEmbedder:
     def _load(self):
         try:
             from sentence_transformers import SentenceTransformer
-            logger.info(f"Loading embedding model: {self.model_name}...")
-            self._model = SentenceTransformer(self.model_name, device="cpu")
-            logger.info("Embedding model loaded successfully.")
+            logger.info(f"Loading embedding model: {self.model_name} (checking local cache first)...")
+            try:
+                self._model = SentenceTransformer(self.model_name, device="cpu", local_files_only=True)
+                logger.info("Embedding model loaded successfully from local cache (offline).")
+            except Exception as cache_miss:
+                logger.info(f"Local cache miss or first load ({cache_miss}). Attempting online download...")
+                self._model = SentenceTransformer(self.model_name, device="cpu", local_files_only=False)
+                logger.info("Embedding model downloaded and loaded successfully.")
         except ImportError as e:
             logger.error(f"Failed to import sentence_transformers: {e}")
             raise

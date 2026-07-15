@@ -13,6 +13,7 @@ torch==2.3.1
 # Document parsing
 docling==2.5.0
 docling-core==2.5.0
+pypdf==6.14.2
 
 # NER
 spacy==3.7.5

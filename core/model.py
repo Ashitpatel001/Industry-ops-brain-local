@@ -88,14 +88,15 @@ class LocalLLM:
                 pass
             ov_config["INFERENCE_NUM_THREADS"] = str(min(8, cpu_count))
 
-        logger.info(f"Loading OVModelForCausalLM from {self.model_dir} on {device}...")
-        self.tokenizer = AutoTokenizer.from_pretrained(str(self.model_dir), trust_remote_code=True)
+        logger.info(f"Loading OVModelForCausalLM from {self.model_dir} on {device} (local_files_only=True)...")
+        self.tokenizer = AutoTokenizer.from_pretrained(str(self.model_dir), trust_remote_code=True, local_files_only=True)
         self.pipe = OVModelForCausalLM.from_pretrained(
             str(self.model_dir),
             compile=True,
             device=device,
             ov_config=ov_config if ov_config else None,
             trust_remote_code=True,
+            local_files_only=True,
         )
         self.backend = f"OpenVINO/{device}"
         logger.info(f"Model loaded successfully: {self.backend}")
