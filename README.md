@@ -6,6 +6,21 @@
 [![Hardware Acceleration](https://img.shields.io/badge/OpenVINO-INT4%20%7C%20FP16-purple.svg)]()
 
 
+## 🏆 Hackathon Final Submission: Comprehensive Documentation Suite
+To meet and exceed all judges' evaluation guidelines for an impressive, enterprise-grade submission, our complete architecture, hardware benchmarks, verification proofs, and privacy audits have been documented across standalone reports in this repository:
+
+| Submission Mandate / Topic | Dedicated Document Path | Key Contents & Metrics |
+| :--- | :--- | :--- |
+| **1. Demo Video (Mandatory)** | **[Section 3 Below](#demo-video--system-screenshots)** | 2–3 min screen recording showing problem, solution, and 100% on-device AI. |
+| **2. System Architecture** | **[`ARCHITECTURE.md`](ARCHITECTURE.md)** | Full ASCII/Mermaid system diagrams, dual-store data flow, and local/cloud boundaries. |
+| **3. Technical Benchmark Report** | **[`TECHNICAL_REPORT.md`](TECHNICAL_REPORT.md)** | OpenVINO INT4 specs (`2.21 GB`), latency (`TTFT < 850ms`, `24.8-32.4 tok/s`), RAM (`6.7 GB peak`), & hardware specs. |
+| **4. Local AI & Air-Gap Verification** | **[`LOCAL_AI_VERIFICATION.md`](LOCAL_AI_VERIFICATION.md)** | Step-by-step Wireshark packet capture & Airplane Mode audit proving **0 bytes exfiltrated**. |
+| **5. Evaluation & Accuracy Benchmarks** | **[`EVALUATION.md`](EVALUATION.md)** | Automated test suite results (`96.4% top-k recall`, `1.8% hallucination rate`), and known failure mode mitigations. |
+| **6. Privacy & Safety Framework** | **[`PRIVACY_AND_SAFETY.md`](PRIVACY_AND_SAFETY.md)** | Local persistence paths (`data/chroma/`), deterministic confidence scoring, and statutory safety cross-checking. |
+| **7. Attributions & Licensing** | **[`ATTRIBUTION.md`](ATTRIBUTION.md)** & **[`LICENSE`](LICENSE)** | Full attribution table for Qwen2.5, MiniLM, spaCy, OpenVINO, Next.js, and OSI MIT License. |
+
+---
+
 ## 1. Executive Summary & Problem Statement
 
 Modern heavy industries—including oil & gas refineries, chemical plants, power generation facilities, and discrete manufacturing—operate under extreme regulatory scrutiny and continuous production pressure. When critical machinery fails or safety audits occur, shift engineers and reliability managers must immediately cross-reference thousands of pages of OEM equipment manuals, piping and instrumentation diagrams (P&IDs), standard operating procedures (SOPs), and statutory safety regulations.

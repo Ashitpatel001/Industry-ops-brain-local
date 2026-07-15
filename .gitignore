@@ -65,7 +65,13 @@ yarn-error.log*
 .DS_Store
 Thumbs.db
 
-# Extra Markdown Files (only track main README.md)
+# Extra Markdown Files (only track main submission docs)
 *.md
 !README.md
 !models/README.md
+!ARCHITECTURE.md
+!TECHNICAL_REPORT.md
+!LOCAL_AI_VERIFICATION.md
+!EVALUATION.md
+!PRIVACY_AND_SAFETY.md
+!ATTRIBUTION.md
