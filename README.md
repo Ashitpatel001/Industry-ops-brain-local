@@ -1,4 +1,4 @@
-# Ops Brain Local
+# Industrial Ops Brain Local
 **100% On-Premise, Air-Gapped Industrial AI & Multi-Agent Reliability Engine**
 
 [![OSI-Compliant License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -6,7 +6,7 @@
 [![Hardware Acceleration](https://img.shields.io/badge/OpenVINO-INT4%20%7C%20FP16-purple.svg)]()
 
 
-## 🏆 Hackathon Final Submission
+## OSD'Hack 2026 - Final psaHackathon Submission
 Evaluation guidelines for an impressive, enterprise-grade submission, our complete architecture, hardware benchmarks, verification proofs, and privacy audits have been documented across standalone reports in this repository:
 
 | Submission Mandate / Topic | Dedicated Document Path | Key Contents & Metrics |
